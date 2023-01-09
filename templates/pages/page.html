@@ -1,0 +1,9 @@
+<li>
+    <h3><a href="{{page.url}}">{{page.title}}</a></h3>
+    <time datetime="{{page.updated_at}}">{{page.updated_at}}</time>
+    {% match page.summary %}
+    {% when Some with (summary) %}
+    {{- summary -}}
+    {% else %}
+    {% endmatch %}
+</li>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css">
+    <script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
+    <link rel="stylesheet" href="/static/assets/style.css?version=1">
+</head>
+
+<body>
+<header>
+    <button onclick="save()">Save</button>
+    <button onclick="window.location.href = '/pages/{{id}}';">Cancel</button>
+    <form>
+        <input list="zettel" type="search" id="value" name="value" autocomplete="off">
+        <datalist id="zettel"></datalist>
+        <button type="submit" formmethod="get" formaction="/pages">Search</button>
+    </form>
+</header>
+<main>
+    <h1>{{title}}</h1>
+    <textarea id="markdown" name="markdown"></textarea>
+    <script>
+            const easyMDE = new EasyMDE({
+                hideIcons: ["side-by-side", "preview"],
+                spellChecker: false,
+            });
+            easyMDE.value(`{{content}}`);
+            function save() {
+                const markdown = easyMDE.value();
+                const f = document.createElement("form");
+                f.setAttribute("method", "post");
+                const t = document.createElement("textarea");
+                t.setAttribute("type", "text");
+                t.setAttribute("name", "markdown");
+                f.appendChild(t);
+                t.innerHTML = markdown;
+                f.hidden = true;
+                document.body.appendChild(f);
+                f.submit();
+            }
+
+            const input = document.getElementById("value");
+            input.addEventListener("input", updateSuggestions);
+
+            async function updateSuggestions(event) {
+                const value = input.value;
+                if (value.length < 3) {
+                    return;
+                }
+                const response = await fetch(`/suggestions?value=${value}`);
+                const suggestions = await response.text();
+                console.log(suggestions);
+                const datalist = document.getElementById("zettel");
+                console.log(datalist);
+                datalist.innerHTML = suggestions;
+            }
+
+    </script>
+</main>
+</body>
+
+</html>

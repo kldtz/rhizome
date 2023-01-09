@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="/static/assets/style.css?version=1">
+</head>
+
+<body>
+<header>
+    <form>
+        <button type="submit" formmethod="post" formaction="/admin/logout">Log Out</button>
+    </form>
+    <form>
+        <input type="search" id="value" name="value">
+        <button type="submit" formmethod="get" formaction="/pages">Search</button>
+        <button type="submit" formmethod="post" formaction="/pages">New</button>
+    </form>
+</header>
+<main>
+    <h1>Welcome <i>{{username}}</i>!</h1>
+    <ul>
+        <li><a href="/admin/password">Change password</a></li>
+    </ul>
+</main>
+</body>
+
+</html>

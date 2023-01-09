@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="/static/assets/style.css?version=1">
+    <link rel="stylesheet" href="/static/assets/highlight.css">
+    <script src="/static/assets/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</head>
+
+<body>
+<header>
+    <button onclick="window.location.href ='/pages/{{id}}/edit'">Edit</button>
+    <form>
+        <input type="search" id="value" name="value">
+        <button type="submit" formmethod="get" formaction="/pages">Search</button>
+        <button type="submit" formmethod="post" formaction="/pages">New</button>
+    </form>
+</header>
+<main>
+    <h1>{{title}}</h1>
+    {{content}}
+    {% if backlinks.len() > 0 %}
+        <hr>
+        <ul class="page-summaries">
+            {% for page in backlinks %}
+            {% include "page.html" %}
+            {% endfor %}
+        </ul>
+    {% endif %}
+</main>
+</body>
+
+</html>

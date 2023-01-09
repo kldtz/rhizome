@@ -1,0 +1,283 @@
+{
+  "db": "PostgreSQL",
+  "2505b5f942a7bc360ca9fecb14ce8100a721d692b4ace8c7e11cf81d169c8d52": {
+    "describe": {
+      "columns": [],
+      "nullable": [],
+      "parameters": {
+        "Left": [
+          "Text",
+          "Uuid"
+        ]
+      }
+    },
+    "query": "\n    UPDATE users\n    SET password_hash = $1\n    WHERE user_id = $2\n    "
+  },
+  "3f27fd8d1d70403e0cafb758988c88ec2669286c523f1bea10bbd8173d90b746": {
+    "describe": {
+      "columns": [
+        {
+          "name": "username",
+          "ordinal": 0,
+          "type_info": "Text"
+        }
+      ],
+      "nullable": [
+        false
+      ],
+      "parameters": {
+        "Left": [
+          "Uuid"
+        ]
+      }
+    },
+    "query": "\n        SELECT username\n        FROM users\n        WHERE user_id = $1\n    "
+  },
+  "5a956a39c2f5c356772fcd70fab0ff92e81dc4b38aa3b9aba14a1456f8bd7cc3": {
+    "describe": {
+      "columns": [
+        {
+          "name": "title",
+          "ordinal": 0,
+          "type_info": "Text"
+        },
+        {
+          "name": "summary",
+          "ordinal": 1,
+          "type_info": "Text"
+        },
+        {
+          "name": "updated_at",
+          "ordinal": 2,
+          "type_info": "Timestamptz"
+        }
+      ],
+      "nullable": [
+        false,
+        true,
+        false
+      ],
+      "parameters": {
+        "Left": [
+          "Int4"
+        ]
+      }
+    },
+    "query": "\n    SELECT page.title AS title, page.summary AS summary, page.updated_at AS updated_at\n    FROM link\n    INNER JOIN page ON page.id = link.source\n    WHERE link.target = $1\n    "
+  },
+  "605899a8ee8613687f136af2acd7ee32d0bb338d79d7c571c05ca553b198bdda": {
+    "describe": {
+      "columns": [],
+      "nullable": [],
+      "parameters": {
+        "Left": [
+          "Text",
+          "Text",
+          "Timestamptz"
+        ]
+      }
+    },
+    "query": "\n    INSERT INTO page (title, summary, content, created_at)\n    VALUES ($1, NULL, $2, $3)\n    "
+  },
+  "621a37871e878d85ebb96c2c5b30f63ef5d2882b2917332f1a5294b5d6b44132": {
+    "describe": {
+      "columns": [],
+      "nullable": [],
+      "parameters": {
+        "Left": [
+          "Text"
+        ]
+      }
+    },
+    "query": "\n    DELETE FROM link\n    WHERE link.source = (\n        SELECT id\n        FROM page\n        WHERE title = $1\n    );\n    "
+  },
+  "808e747cede507d635474fabc294ff6a5dc3af1c2648e3760ee85338dba96c13": {
+    "describe": {
+      "columns": [],
+      "nullable": [],
+      "parameters": {
+        "Left": [
+          "Text",
+          "Text",
+          "Timestamptz",
+          "Text"
+        ]
+      }
+    },
+    "query": "\n    UPDATE page\n    SET content = $1, summary = $2, updated_at = $3\n    WHERE title = $4;\n    "
+  },
+  "9d4a7716c3ef7cd141c982e76916945a7da496e7b0aada4a78212386e3b3ec7e": {
+    "describe": {
+      "columns": [
+        {
+          "name": "title",
+          "ordinal": 0,
+          "type_info": "Text"
+        },
+        {
+          "name": "summary",
+          "ordinal": 1,
+          "type_info": "Text"
+        },
+        {
+          "name": "updated_at",
+          "ordinal": 2,
+          "type_info": "Timestamptz"
+        }
+      ],
+      "nullable": [
+        false,
+        true,
+        false
+      ],
+      "parameters": {
+        "Left": [
+          "Text"
+        ]
+      }
+    },
+    "query": "\n    SELECT title, summary, updated_at\n    FROM page\n    WHERE content ~ $1 OR title ~ $1\n    "
+  },
+  "a487026ee2298aad1f766a0b25c66a574027decd18c040bcf9292fe640b12b97": {
+    "describe": {
+      "columns": [
+        {
+          "name": "id",
+          "ordinal": 0,
+          "type_info": "Int4"
+        },
+        {
+          "name": "title",
+          "ordinal": 1,
+          "type_info": "Text"
+        }
+      ],
+      "nullable": [
+        false,
+        false
+      ],
+      "parameters": {
+        "Left": [
+          "Text"
+        ]
+      }
+    },
+    "query": "\n    SELECT id, title\n    FROM page\n    WHERE title ILIKE $1\n    "
+  },
+  "b8b9c9b003e9621fe759417d8f9f16b9c8e5705efdef05dbb565cf2f7ab37745": {
+    "describe": {
+      "columns": [
+        {
+          "name": "username",
+          "ordinal": 0,
+          "type_info": "Text"
+        }
+      ],
+      "nullable": [
+        false
+      ],
+      "parameters": {
+        "Left": [
+          "Uuid"
+        ]
+      }
+    },
+    "query": "\n    SELECT username\n    FROM users\n    WHERE user_id = $1\n    "
+  },
+  "da050a275ad1f4f1d8ea4baa095c3b426d28c4b1fbc077239b523cef80d47e65": {
+    "describe": {
+      "columns": [
+        {
+          "name": "title",
+          "ordinal": 0,
+          "type_info": "Text"
+        },
+        {
+          "name": "summary",
+          "ordinal": 1,
+          "type_info": "Text"
+        },
+        {
+          "name": "updated_at",
+          "ordinal": 2,
+          "type_info": "Timestamptz"
+        }
+      ],
+      "nullable": [
+        false,
+        true,
+        false
+      ],
+      "parameters": {
+        "Left": []
+      }
+    },
+    "query": "\n    SELECT title, summary, updated_at\n    FROM page\n    ORDER BY updated_at DESC\n    LIMIT 5;\n    "
+  },
+  "ea2fd187c599ab754815242e30a1d3cde03c401be44d945c25c8475b305a484a": {
+    "describe": {
+      "columns": [],
+      "nullable": [],
+      "parameters": {
+        "Left": [
+          "TextArray",
+          "BoolArray",
+          "Text"
+        ]
+      }
+    },
+    "query": "\n    INSERT INTO link (source, target, bidirectional)\n    SELECT source_page.id, target_page.id, new_link.bidirectional\n    FROM UNNEST($1::text[], $2::bool[]) AS new_link (target, bidirectional)\n    INNER JOIN page source_page ON source_page.title = $3\n    INNER JOIN page target_page ON target_page.title = new_link.target;\n    "
+  },
+  "f15c1f77031ffb2a966f82c1685495a43daa24b46c936d0577077f19c2faed97": {
+    "describe": {
+      "columns": [
+        {
+          "name": "user_id",
+          "ordinal": 0,
+          "type_info": "Uuid"
+        },
+        {
+          "name": "password_hash",
+          "ordinal": 1,
+          "type_info": "Text"
+        }
+      ],
+      "nullable": [
+        false,
+        false
+      ],
+      "parameters": {
+        "Left": [
+          "Text"
+        ]
+      }
+    },
+    "query": "\n    SELECT user_id, password_hash\n    FROM users\n    WHERE username = $1\n   "
+  },
+  "fbde6abd48f0c4f63028dccfcffc9e30803210c4b5f825d47d9a3520bcd8d3cd": {
+    "describe": {
+      "columns": [
+        {
+          "name": "id",
+          "ordinal": 0,
+          "type_info": "Int4"
+        },
+        {
+          "name": "content",
+          "ordinal": 1,
+          "type_info": "Text"
+        }
+      ],
+      "nullable": [
+        false,
+        false
+      ],
+      "parameters": {
+        "Left": [
+          "Text"
+        ]
+      }
+    },
+    "query": "\n    SELECT id, content\n    FROM page\n    WHERE title = $1\n    "
+  }
+}
