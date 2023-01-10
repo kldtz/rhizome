@@ -11,6 +11,8 @@ services:
       - '5432:5432'
     volumes:
       - db:/var/lib/postgresql/data
+    networks:
+      - internal
   redis:
     image: redis:6-alpine
     restart: always
@@ -19,6 +21,8 @@ services:
     command: redis-server --requirepass ${REDIS_PASS:-password}
     volumes:
       - redis:/data
+    networks:
+      - internal
   app:
     build: .
     depends_on:
@@ -32,6 +36,16 @@ services:
       APP_DATABASE__PASSWORD: password
       APP_DATABASE__DATABASE_NAME: knowledge
       APP_REDIS_URI: "redis://redis:6379"
+    networks:
+      - internal
+      - external
+
+networks:
+  internal:
+    internal: true
+  external:
+    internal: false
+
 
 volumes:
   db:
