@@ -26,8 +26,8 @@ services:
     depends_on:
       - db
       - redis
-    ports:
-      - '8000:8000'
+    expose:
+      - '8000'
     environment:
       APP_DATABASE__HOST: db
       APP_DATABASE__USER: postgres
@@ -42,9 +42,28 @@ services:
       - db
     environment:
       DATABASE_URL: "postgres://postgres:password@db:5432/knowledge"
+  nginx:
+    build:
+      context: deployment/nginx
+      dockerfile: Dockerfile
+    depends_on:
+      - app
+    restart: unless-stopped
+    environment:
+      CERTBOT_EMAIL: tbs.kldtz@gmail.com
+      STAGING: 1
+      DEBUG: 1
+    #env_file:
+    #  - deployment/nginx/nginx-certbot.env
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - nginx_secrets:/etc/letsencrypt
 
 volumes:
   db:
     driver: local
   redis:
     driver: local
+  nginx_secrets:

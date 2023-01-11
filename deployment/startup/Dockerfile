@@ -12,6 +12,3 @@ COPY migrations migrations
 
 # Run database migrations
 CMD ["sqlx", "migrate", "run"]
-
-
-
