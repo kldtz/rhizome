@@ -5,7 +5,7 @@ use argon2::password_hash::SaltString;
 use sqlx::{Connection, Executor, PgConnection, PgPool};
 use uuid::Uuid;
 
-use knowledge_base::configuration::{DatabaseSettings, get_configuration};
+use rhizome::configuration::{DatabaseSettings, get_configuration};
 
 pub struct TestApp {
     pub address: String,
@@ -80,7 +80,7 @@ pub async fn spawn_app() -> TestApp {
     configuration.database.database_name = Uuid::new_v4().to_string();
     let connection_pool = configure_database(&configuration.database).await;
 
-    let server = knowledge_base::startup::run(
+    let server = rhizome::startup::run(
             listener,
             connection_pool.clone(),
             configuration.application.static_dir,

@@ -1,7 +1,7 @@
 use env_logger::Env;
 
-use knowledge_base::configuration::get_configuration;
-use knowledge_base::startup::build;
+use rhizome::configuration::get_configuration;
+use rhizome::startup::build;
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
