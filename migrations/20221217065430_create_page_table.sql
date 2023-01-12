@@ -4,6 +4,6 @@ CREATE TABLE page (
     title TEXT NOT NULL UNIQUE,
     summary TEXT,
     content TEXT NOT NULL,
-    created_at timestamptz NOT NULL,
+    created_at timestamptz NOT NULL DEFAULT current_timestamp,
     updated_at timestamptz NOT NULL DEFAULT current_timestamp
 );
