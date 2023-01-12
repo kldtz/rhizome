@@ -21,9 +21,9 @@ RUN touch src/lib.rs && cargo build --release
 FROM debian:bullseye-slim AS runtime
 
 WORKDIR /app
-COPY --from=builder /app/target/release/knowledge-base knowledge-base
+COPY --from=builder /app/target/release/rhizome rhizome
 COPY configuration configuration
 COPY public public
 ENV APP_ENVIRONMENT production
 # Execute binary as entry point
-ENTRYPOINT ["./knowledge-base"]
+ENTRYPOINT ["./rhizome"]
