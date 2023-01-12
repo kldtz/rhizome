@@ -10,6 +10,8 @@ RUN cargo install sqlx-cli
 
 FROM debian:bullseye-slim AS runtime
 
+RUN apt update && apt install postgresql-client -y
+
 WORKDIR /app
 
 # Copy sqlx client binary
