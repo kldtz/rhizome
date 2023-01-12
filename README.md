@@ -10,14 +10,11 @@ Clone the repo, create and run the containers.
 
 ```sh
 git clone https://github.com/kldtz/rhizome.git
-docker-compose up
+cd rhizome && docker-compose up
 ```
-
-Go to [localhost:8000](http://localhost:8000/).
-
 
 ## Open tasks
 
-* Reverse proxy for TLS
+* Clean up config and deal with secrets
 * HTMX for more interactivity
 * Improve styles 
