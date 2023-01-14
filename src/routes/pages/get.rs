@@ -93,7 +93,7 @@ impl EditPage<'_> {
         Ok(EditPage {
             id,
             title,
-            content,
+            content: &content.replace('`', r"\`"),
         }
             .render().with_context(|| format!("Could not render edit view for pages {}", title))?)
     }

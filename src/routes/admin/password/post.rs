@@ -46,7 +46,7 @@ pub async fn change_password(
                 FlashMessage::error("The current password is incorrect.").send();
                 Ok(see_other("/admin/password"))
             }
-            _ => Err(e500(e).into())
+            _ => Err(e500(e))
         }
     }
     authentication::change_password(user_id, form.0.new_password, &pool)
