@@ -28,7 +28,7 @@ pub async fn create_page(pool: web::Data<PgPool>, form: web::Form<Info>) -> KBRe
         .await
         .context("Failed to commit SQL transaction to store new page.")?;
     // TODO: display error on current page if this fails
-    Ok(see_other(&format!("/pages/{}", new_id)))
+    Ok(see_other(&format!("/pages/{}/edit", new_id)))
 }
 
 async fn insert_new_page(transaction: &mut Transaction<'_, Postgres>, title: &str) -> Result<(), sqlx::Error> {

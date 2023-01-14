@@ -15,7 +15,7 @@ async fn page_creation_works() {
 
     // Create page
     let response = app.create_page("Test Page").await;
-    assert_is_redirect_to(&response, "/pages/Test Page");
+    assert_is_redirect_to(&response, "/pages/Test Page/edit");
     let page = sqlx::query!("SELECT title FROM page")
         .fetch_one(&app.db_pool)
         .await
@@ -33,7 +33,7 @@ async fn page_saving_works() {
 
     // Create page
     let create_response = app.create_page("Test Page").await;
-    assert_is_redirect_to(&create_response, "/pages/Test Page");
+    assert_is_redirect_to(&create_response, "/pages/Test Page/edit");
 
     // Save edit
     let save_response = app.api_client
