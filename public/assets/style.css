@@ -6,6 +6,7 @@
     --text-color: black;
     --background-color: #f8f8f8;
     --details-background-color: #e8e8e8;
+    --link-color: DarkBlue;
     font-size: 105%;
     font-family: "Helvetica", "Arial", sans-serif;
     line-height: 1.5;
@@ -21,10 +22,7 @@
         --background-color: #161718;
         --details-background-color: #242426;
         --highlight-color: rgb(213, 67, 67);
-    }
-
-    a {
-        color: rgb(83, 154, 212);
+        --link-color: LightBlue;
     }
 }
 
@@ -71,14 +69,15 @@ h3 {
 
 a {
     text-decoration: underline;
+    color: var(--text-color);
 }
 
 a:hover {
-    opacity: 0.7;
+    opacity: 0.8;
 }
 
-a[href ^= "/"] {
-    color: var(--text-color);
+a[href ^= "http"] {
+    color: var(--link-color);
 }
 
 /* Buttons */
@@ -127,6 +126,7 @@ ol, ul, blockquote {
 ul.page-summaries {
     list-style: none;
     padding-left: 0;
+    margin-left: 0;
 }
 
 ul.page-summaries li h3 {
