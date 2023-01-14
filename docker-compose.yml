@@ -51,7 +51,6 @@ services:
     restart: unless-stopped
     environment:
       CERTBOT_EMAIL: tbs.kldtz@gmail.com
-      DEBUG: 1
     #env_file:
     #  - deployment/nginx/nginx-certbot.env
     ports:
