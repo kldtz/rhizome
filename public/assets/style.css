@@ -1,20 +1,44 @@
 /* Basics */
 
-html {
-    font-size: 16px;
+:root {
+    --text-width: 38.6rem;
+    --smaller-text: 0.9rem;
+    --text-color: black;
+    --background-color: #f8f8f8;
+    --details-background-color: #e8e8e8;
+    font-size: 105%;
+    font-family: "Helvetica", "Arial", sans-serif;
+    line-height: 1.5;
     overflow: auto;
-    max-width: 800px;
-    margin: auto;
-    background-color: antiquewhite;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --text-color: rgb(190, 186, 181);
+        --background-color: #161718;
+        --details-background-color: #242426;
+        --highlight-color: rgb(213, 67, 67);
+    }
+
+    a {
+        color: rgb(83, 154, 212);
+    }
 }
 
 body {
-    width: 800px;
+    margin: auto;
+    max-width: var(--text-width);
+    padding: 0.7em 0.7em;
 }
+
+/* Top menu */
 
 header {
     position: fixed;
-    width: 800px;
+    width: var(--text-width);
     display: flex;
     justify-content: flex-end;
     gap: 10px;
@@ -31,52 +55,71 @@ main {
 /* Headers */
 
 h1 {
-    font-size: 20px;
+    font-size: 1.5em;
 }
 
 h2 {
-    font-size: 18px;
+    font-size: 1.2em;
 }
 
 h3 {
-    font-size: 16px;
+    font-size: 1em;
 }
 
 
 /* Links */
 
 a {
-    color: darkblue;
-}
-
-a.biref {
-    color: darkred;
-}
-
-a.ref {
-    color: darkred;
+    text-decoration: underline;
 }
 
 a:hover {
-    opacity: 0.8;
+    opacity: 0.7;
+}
+
+a[href ^= "/"] {
+    color: var(--text-color);
 }
 
 /* Buttons */
 
 button {
-    background-color: antiquewhite;
+    background-color: var(--background-color);
 }
 
 /* Tables */
-th, td {
-	text-align: left;
-	padding: 0 10px;
+
+table {
+    border-collapse: collapse;
 }
 
-/* Code blocks */
+table,
+th,
+td {
+    border: 1px solid;
+}
+
+th,
+td {
+    padding: 0.1rem 0.3rem;
+}
+
+
+/* Blocks */
 
 pre {
-	font-size: 14px;
+	font-size: 1em;
+}
+
+blockquote {
+    border-left: 0.3em solid #CCC;
+    font-size: var(--smaller-text);
+}
+
+ol, ul, blockquote {
+    margin-left: 1em;
+    margin-right: 1em;
+    padding-left: 1em;
 }
 
 /* Result lists */
@@ -88,16 +131,17 @@ ul.page-summaries {
 
 ul.page-summaries li h3 {
     margin-bottom: 0;
+    line-height: 1;
 }
 
 ul.page-summaries li time {
-    font-size: 12px;
+    font-size: 0.75em;
     margin-top: 0;
     padding-top: 0;
 }
 
 ul.page-summaries li p {
-    margin-top: 4px;
+    margin-top: 0.1em;
 }
 
 /* Forms */
