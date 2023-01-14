@@ -1,5 +1,5 @@
-use actix_web::http::StatusCode;
-use actix_web::ResponseError;
+use actix_web::{HttpResponse, ResponseError};
+use actix_web::http::{StatusCode, header::ContentType};
 
 pub type KBResult<T> = std::result::Result<T, KBError>;
 
@@ -14,6 +14,11 @@ pub enum KBError {
 }
 
 impl ResponseError for KBError {
+    fn error_response(&self) -> HttpResponse {
+        HttpResponse::build(self.status_code())
+            .insert_header(ContentType::html())
+            .body(self.to_string())
+    }
     fn status_code(&self) -> StatusCode {
         StatusCode::INTERNAL_SERVER_ERROR
     }

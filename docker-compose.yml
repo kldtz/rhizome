@@ -16,7 +16,7 @@ services:
     restart: always
     expose:
       - '6379'
-    command: redis-server --requirepass ${REDIS_PASS:-password}
+    command: redis-server
     volumes:
       - redis:/data
   app:

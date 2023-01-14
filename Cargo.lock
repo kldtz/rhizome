@@ -143,9 +143,9 @@ dependencies = [
 
 [[package]]
 name = "actix-session"
-version = "0.6.2"
+version = "0.7.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0c9138a66462f1e65da829f9c0de81b44a96dfe193a4f19bfea32ee2be312368"
+checksum = "43da8b818ae1f11049a4d218975345fe8e56ce5a5f92c11f972abcff5ff80e87"
 dependencies = [
  "actix-service",
  "actix-utils",
@@ -157,7 +157,6 @@ dependencies = [
  "redis",
  "serde",
  "serde_json",
- "time",
  "tracing",
 ]
 
