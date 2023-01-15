@@ -1,11 +1,11 @@
-use actix_web::{HttpResponse};
+use actix_web::HttpResponse;
 use actix_web::web;
 use anyhow::Context;
 use chrono::Utc;
 use serde::Deserialize;
 use sqlx::{PgPool, Postgres, Transaction};
 
-use crate::error::KBResult;
+use crate::error::{KBError, KBResult};
 use crate::page::{Link, Page};
 use crate::utils::see_other;
 
@@ -16,6 +16,9 @@ pub struct Info {
 
 pub async fn create_page(pool: web::Data<PgPool>, form: web::Form<Info>) -> KBResult<HttpResponse> {
     let new_id = form.value.trim();
+    if new_id.is_empty() {
+        return Err(KBError::InvalidPageTitle("Page title must not be empty!"));
+    }
     let mut transaction = pool
         .begin()
         .await

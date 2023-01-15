@@ -9,6 +9,8 @@ pub enum KBError {
     LoginError(String),
     #[error("Invalid credentials.")]
     InvalidCredentials(#[source] anyhow::Error),
+    #[error("{0}")]
+    InvalidPageTitle(&'static str),
     #[error(transparent)]
     UnexpectedError(#[from] anyhow::Error),
 }
