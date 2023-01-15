@@ -1,3 +1,5 @@
+use argon2::{Algorithm, Argon2, Params, PasswordHasher, Version};
+use argon2::password_hash::SaltString;
 use crate::helpers::{assert_is_redirect_to, spawn_app};
 use uuid::Uuid;
 
@@ -121,4 +123,18 @@ async fn changing_password_works() {
     });
     let response = app.post_login(&login_body).await;
     assert_is_redirect_to(&response, "/admin");
+}
+
+#[tokio::test]
+async fn seed_password() {
+    let salt = SaltString::generate(&mut rand::thread_rng());
+    let password_hash = Argon2::new(
+        Algorithm::Argon2id,
+        Version::V0x13,
+        Params::new(15000, 2, 1, None).unwrap()
+    )
+        .hash_password("Wurzelgeflecht".as_bytes(), &salt)
+        .unwrap()
+        .to_string();
+    println!("{}", password_hash);
 }
