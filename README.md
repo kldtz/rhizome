@@ -1,6 +1,6 @@
 # Rhizome
 
-Slightly over-engineered personal knowledge base. Uses code and tricks from Luca Palmieri's excellent book [Zero to Production in Rust](https://www.zero2prod.com). [WIP]
+Slightly over-engineered personal knowledge base. Uses code and tricks from Luca Palmieri's excellent book [Zero to Production in Rust](https://www.zero2prod.com).
 
 ## Installation
 
@@ -26,7 +26,7 @@ DB=$(docker compose ps -q db)
 
 # Restore db
 docker cp knowledge_dump.tar $DB:/
-docker exec -i $DB pg_restore -U postgres -c -d knowledge knowledge_dump.tar
+docker exec -i $DB pg_restore -U postgres -c -d knowledge backup/knowledge_dump.tar
 ```
 
 ## Open tasks
