@@ -4,13 +4,13 @@ Slightly over-engineered personal knowledge base. Uses code and tricks from Luca
 
 ## Installation
 
-Prerequisites: `docker`, `docker-compose`.
+Prerequisites: `docker`, `docker-compose-plugin`.
 
 Clone the repo, create and run the containers.
 
 ```sh
 git clone https://github.com/kldtz/rhizome.git
-cd rhizome && docker-compose up
+cd rhizome && docker compose up -d
 ```
 
 ## Manual database backup
