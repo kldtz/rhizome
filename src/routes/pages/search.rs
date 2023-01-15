@@ -68,7 +68,7 @@ async fn select_pages(
     sqlx::query_as!(PageView, r#"
     SELECT title, summary, updated_at
     FROM page
-    WHERE content ~ $1 OR title ~ $1
+    WHERE content ~* $1 OR title ~* $1
     "#, pattern)
         .fetch_all(pool)
         .await

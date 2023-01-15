@@ -1,5 +1,37 @@
 {
   "db": "PostgreSQL",
+  "23e08017bbcb0098af1540c306477a09cabeedceb801e0f674f812f6cc6f003b": {
+    "describe": {
+      "columns": [
+        {
+          "name": "title",
+          "ordinal": 0,
+          "type_info": "Text"
+        },
+        {
+          "name": "summary",
+          "ordinal": 1,
+          "type_info": "Text"
+        },
+        {
+          "name": "updated_at",
+          "ordinal": 2,
+          "type_info": "Timestamptz"
+        }
+      ],
+      "nullable": [
+        false,
+        true,
+        false
+      ],
+      "parameters": {
+        "Left": [
+          "Text"
+        ]
+      }
+    },
+    "query": "\n    SELECT title, summary, updated_at\n    FROM page\n    WHERE content ~* $1 OR title ~* $1\n    "
+  },
   "2505b5f942a7bc360ca9fecb14ce8100a721d692b4ace8c7e11cf81d169c8d52": {
     "describe": {
       "columns": [],
@@ -105,38 +137,6 @@
       }
     },
     "query": "\n    UPDATE page\n    SET content = $1, summary = $2, updated_at = $3\n    WHERE title = $4;\n    "
-  },
-  "9d4a7716c3ef7cd141c982e76916945a7da496e7b0aada4a78212386e3b3ec7e": {
-    "describe": {
-      "columns": [
-        {
-          "name": "title",
-          "ordinal": 0,
-          "type_info": "Text"
-        },
-        {
-          "name": "summary",
-          "ordinal": 1,
-          "type_info": "Text"
-        },
-        {
-          "name": "updated_at",
-          "ordinal": 2,
-          "type_info": "Timestamptz"
-        }
-      ],
-      "nullable": [
-        false,
-        true,
-        false
-      ],
-      "parameters": {
-        "Left": [
-          "Text"
-        ]
-      }
-    },
-    "query": "\n    SELECT title, summary, updated_at\n    FROM page\n    WHERE content ~ $1 OR title ~ $1\n    "
   },
   "a487026ee2298aad1f766a0b25c66a574027decd18c040bcf9292fe640b12b97": {
     "describe": {
