@@ -18,11 +18,11 @@ cd rhizome && docker compose up -d
 Use docker to copy the dump file. Going via stdout can corrupt the file.
 
 ```
-DB=$(docker-compose ps -q db)
+# Backup db
+./scripts/backup_db.sh
 
-# Dump db
-docker exec -i $DB db pg_dump -U postgres -F t knowledge -f knowledge_dump.tar
-docker cp $DB:knowledge_dump.tar .
+# Get container hash
+DB=$(docker compose ps -q db)
 
 # Restore db
 docker cp knowledge_dump.tar $DB:/
