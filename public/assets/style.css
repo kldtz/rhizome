@@ -38,6 +38,8 @@ header {
     display: flex;
     justify-content: flex-end;
     gap: 10px;
+    position: sticky;
+    top: 0.7em;
 }
 
 header form {
