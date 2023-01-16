@@ -35,8 +35,6 @@ body {
 /* Top menu */
 
 header {
-    position: fixed;
-    width: var(--text-width);
     display: flex;
     justify-content: flex-end;
     gap: 10px;
