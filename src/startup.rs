@@ -78,8 +78,6 @@ pub async fn run(
             .app_data(db_pool.clone())
             .app_data(Data::new(HmacSecret(hmac_secret.clone())))
     })
-        // TODO: remove (only for testing)
-        .workers(1)
         .listen(listener)?
         .run();
     // No .await here!
