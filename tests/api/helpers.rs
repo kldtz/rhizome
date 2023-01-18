@@ -83,7 +83,6 @@ pub async fn spawn_app() -> TestApp {
     let server = rhizome::startup::run(
             listener,
             connection_pool.clone(),
-            configuration.application.static_dir,
             configuration.application.hmac_secret,
             configuration.redis_uri,
         ).await.expect("Failed to bind address");

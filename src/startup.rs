@@ -16,7 +16,7 @@ use sqlx::PgPool;
 
 use crate::authentication::reject_anonymous_users;
 use crate::configuration::Settings;
-use crate::routes::{admin_dashboard, change_password, change_password_form, create_page, edit_page, health_check, home, log_out, login, login_form, read_page, save_page, search_page, suggest_page_title};
+use crate::routes::{admin_dashboard, change_password, change_password_form, create_page, edit_page, favicon, health_check, home, log_out, login, login_form, read_page, save_page, search_page, suggest_page_title};
 
 #[derive(Clone)]
 pub struct HmacSecret(pub Secret<String>);
@@ -29,7 +29,6 @@ pub async fn build(configuration: Settings) -> Result<Server, anyhow::Error> {
     run(
         listener,
         connection_pool,
-        configuration.application.static_dir,
         configuration.application.hmac_secret,
         configuration.redis_uri,
     ).await
@@ -38,7 +37,6 @@ pub async fn build(configuration: Settings) -> Result<Server, anyhow::Error> {
 pub async fn run(
     listener: TcpListener,
     db_pool: PgPool,
-    static_dir: String,
     hmac_secret: Secret<String>,
     redis_uri: Secret<String>,
 ) -> Result<Server, anyhow::Error> {
@@ -55,7 +53,8 @@ pub async fn run(
             // Public endpoints
             .route("/health_check", web::get().to(health_check))
             .route("/", web::get().to(home))
-            .service(actix_files::Files::new("/static", &static_dir).index_file("index.html"))
+            .service(actix_files::Files::new("/static", "public"))
+            .route("/favicon.ico", web::get().to(favicon))
             .route("/pages/{id}", web::get().to(read_page))
             .route("/pages", web::get().to(search_page))
             .route("/suggest", web::get().to(suggest_page_title))

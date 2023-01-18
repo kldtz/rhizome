@@ -1,6 +1,6 @@
-use actix_web::web;
 use actix_web::http::header::ContentType;
 use actix_web::HttpResponse;
+use actix_web::web;
 use anyhow::Context;
 use askama::Template;
 use chrono::{DateTime, Utc};

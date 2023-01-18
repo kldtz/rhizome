@@ -1,3 +1,6 @@
+use std::io;
+
+use actix_files::NamedFile;
 use actix_web::{HttpResponse, web};
 use anyhow::Context;
 use askama::Template;
@@ -50,4 +53,9 @@ async fn retrieve_recently_edited(
     "#)
         .fetch_all(pool)
         .await
+}
+
+
+pub async fn favicon() -> io::Result<NamedFile> {
+    NamedFile::open_async("public/assets/favicon.ico").await
 }
