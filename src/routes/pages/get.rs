@@ -75,6 +75,7 @@ async fn retrieve_backlinks(
     FROM link
     INNER JOIN page ON page.id = link.source
     WHERE link.target = $1
+    ORDER BY page.title
     "#, target)
         .fetch_all(pool)
         .await
