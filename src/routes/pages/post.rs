@@ -45,17 +45,17 @@ async fn insert_new_page(transaction: &mut Transaction<'_, Postgres>, title: &st
 }
 
 #[derive(Deserialize)]
-pub struct EditForm {
+pub struct EditData {
     pub markdown: String,
 }
 
 pub async fn save_page(
     pool: web::Data<PgPool>,
     id: web::Path<String>,
-    form: web::Form<EditForm>,
+    body: web::Json<EditData>,
 ) -> KBResult<HttpResponse> {
     let title = id.into_inner();
-    let page = Page::unique(Page::from(&form.markdown));
+    let page = Page::unique(Page::from(&body.markdown));
     let mut transaction = pool
         .begin()
         .await

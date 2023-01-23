@@ -30,17 +30,24 @@
             });
             easyMDE.value(`{{content}}`);
             function save() {
-                const markdown = easyMDE.value();
-                const f = document.createElement("form");
-                f.setAttribute("method", "post");
-                const t = document.createElement("textarea");
-                t.setAttribute("type", "text");
-                t.setAttribute("name", "markdown");
-                f.appendChild(t);
-                t.innerHTML = markdown;
-                f.hidden = true;
-                document.body.appendChild(f);
-                f.submit();
+                fetch("/pages/{{id}}/edit", {
+                    method: "POST",
+                    redirect: "follow",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        "markdown": easyMDE.value()
+                    })
+                })
+                    .then(response => {
+                        if (response.redirected) {
+                            window.location.href = response.url;
+                        }
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
             }
 
             const input = document.getElementById("value");

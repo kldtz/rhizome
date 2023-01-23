@@ -94,6 +94,7 @@ impl EditPage<'_> {
         Ok(EditPage {
             id,
             title,
+            // Backticks need escaping because this goes into a JS template literal
             content: &content.replace('`', r"\`"),
         }
             .render().with_context(|| format!("Could not render edit view for pages {}", title))?)
