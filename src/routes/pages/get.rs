@@ -74,7 +74,7 @@ async fn retrieve_backlinks(
     SELECT page.title AS title, page.summary AS summary, page.updated_at AS updated_at
     FROM link
     INNER JOIN page ON page.id = link.source
-    WHERE link.target = $1
+    WHERE link.target = $1 AND link.bidirectional
     ORDER BY page.title
     "#, target)
         .fetch_all(pool)

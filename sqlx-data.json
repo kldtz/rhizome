@@ -65,6 +65,38 @@
     },
     "query": "\n        SELECT username\n        FROM users\n        WHERE user_id = $1\n    "
   },
+  "5e80cf24f455f99eeb83bf019f5d8fd9cb192d4eef1a71cdb65b0b82d9288559": {
+    "describe": {
+      "columns": [
+        {
+          "name": "title",
+          "ordinal": 0,
+          "type_info": "Text"
+        },
+        {
+          "name": "summary",
+          "ordinal": 1,
+          "type_info": "Text"
+        },
+        {
+          "name": "updated_at",
+          "ordinal": 2,
+          "type_info": "Timestamptz"
+        }
+      ],
+      "nullable": [
+        false,
+        true,
+        false
+      ],
+      "parameters": {
+        "Left": [
+          "Int4"
+        ]
+      }
+    },
+    "query": "\n    SELECT page.title AS title, page.summary AS summary, page.updated_at AS updated_at\n    FROM link\n    INNER JOIN page ON page.id = link.source\n    WHERE link.target = $1 AND link.bidirectional\n    ORDER BY page.title\n    "
+  },
   "605899a8ee8613687f136af2acd7ee32d0bb338d79d7c571c05ca553b198bdda": {
     "describe": {
       "columns": [],
@@ -181,38 +213,6 @@
       }
     },
     "query": "\n    SELECT title, summary, updated_at\n    FROM page\n    ORDER BY updated_at DESC\n    LIMIT 5;\n    "
-  },
-  "e0f061dcc8d203a10b3564a3b6bf503aa78b8212cc63cea7b42b8297d51857f1": {
-    "describe": {
-      "columns": [
-        {
-          "name": "title",
-          "ordinal": 0,
-          "type_info": "Text"
-        },
-        {
-          "name": "summary",
-          "ordinal": 1,
-          "type_info": "Text"
-        },
-        {
-          "name": "updated_at",
-          "ordinal": 2,
-          "type_info": "Timestamptz"
-        }
-      ],
-      "nullable": [
-        false,
-        true,
-        false
-      ],
-      "parameters": {
-        "Left": [
-          "Int4"
-        ]
-      }
-    },
-    "query": "\n    SELECT page.title AS title, page.summary AS summary, page.updated_at AS updated_at\n    FROM link\n    INNER JOIN page ON page.id = link.source\n    WHERE link.target = $1\n    ORDER BY page.title\n    "
   },
   "ea2fd187c599ab754815242e30a1d3cde03c401be44d945c25c8475b305a484a": {
     "describe": {
