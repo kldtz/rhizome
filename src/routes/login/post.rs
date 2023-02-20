@@ -13,6 +13,7 @@ use crate::utils::see_other;
 pub struct FormData {
     username: String,
     password: Secret<String>,
+    redirect: Option<String>,
 }
 
 pub async fn login(
@@ -30,7 +31,11 @@ pub async fn login(
             session.renew();
             session.insert_user_id(user_id)
                 .map_err(|e| login_redirect(KBError::UnexpectedError(e.into())))?;
-            Ok(see_other("/admin"))
+            Ok(match &form.0.redirect {
+                // Ignore redirects to other sites
+                Some(redirect) if redirect.starts_with('/') => see_other(redirect),
+                _ => see_other("/admin")
+            })
         }
         Err(e) => {
             Err(login_redirect(e))
@@ -40,6 +45,6 @@ pub async fn login(
 
 fn login_redirect(e: KBError) -> InternalError<KBError> {
     FlashMessage::error(e.to_string()).send();
-    let response =  see_other("/login");
+    let response = see_other("/login");
     InternalError::from_response(e, response)
 }

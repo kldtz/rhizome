@@ -28,6 +28,11 @@
             <input type="password" placeholder="Enter password" name="password">
         </label>
         <br>
+        {% match redirect %}
+        {% when Some with (value) %}
+        <input type="hidden" id="redirect" name="redirect" value="{{value}}">
+        {% when None %}
+        {% endmatch %}
         <button type="submit">Login</button>
     </form>
 </main>

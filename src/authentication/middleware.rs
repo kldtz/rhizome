@@ -1,9 +1,12 @@
+use actix_web::{FromRequest, HttpMessage};
 use actix_web::body::MessageBody;
 use actix_web::dev::{ServiceRequest, ServiceResponse};
-use actix_web::{FromRequest, HttpMessage};
 use actix_web::error::InternalError;
-use uuid::Uuid;
+use actix_web::http::Method;
 use actix_web_lab::middleware::Next;
+use percent_encoding::{NON_ALPHANUMERIC, utf8_percent_encode};
+use uuid::Uuid;
+
 use crate::session_state::TypedSession;
 use crate::utils::{e500, see_other};
 
@@ -31,7 +34,17 @@ pub async fn reject_anonymous_users(
             next.call(req).await
         }
         None => {
-            let response = see_other("/login");
+            let location = match req.method() {
+                // Only redirect GET requests
+                &Method::GET => {
+                    let uri = req.uri().to_string();
+                    let encoded_uri = utf8_percent_encode(
+                        &uri, NON_ALPHANUMERIC);
+                    format!("/login?redirect={}", encoded_uri)
+                }
+                _ => String::from("/login")
+            };
+            let response = see_other(&location);
             let e = anyhow::anyhow!("The user has not logged in.");
             Err(InternalError::from_response(e, response).into())
         }
