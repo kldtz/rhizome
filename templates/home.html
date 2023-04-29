@@ -18,15 +18,12 @@
 </header>
 <main>
     <h1>Rhizome</h1>
-    <p>
-        Welcome to my personal knowledge base!
-        You can use the search bar above to find pages.
-        An empty query returns all pages.
-        If nothing comes up, just create a new page.
-    </p>
-
+    <blockquote>
+        ... n'importe quel point d'un rhizome peut être connecté avec n'importe quel autre, et doit l'être ... Un rhizome ne commence et n'aboutit pas, il est toujours au
+        milieu, entre les choses, inter-être, intermezzo.
+    </blockquote>
     {% if recently_edited.len() > 0 %}
-    <p>Here is a list of recently edited pages:</p>
+    <h2>Recently edited</h2>
     <ul class="page-summaries">
         {% for page in recently_edited %}
         {% include "pages/page.html" %}
