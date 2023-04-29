@@ -8,11 +8,6 @@ RUN cargo install cargo-watch
 # Force offline compile-time verification
 ENV SQLX_OFFLINE true
 
-# Create dummy project to compile dependencies
-RUN cargo init --lib
-COPY Cargo.toml Cargo.lock ./
-RUN cargo build --release --lib
-
 # Copy all files from working environment
 COPY . .
 ENV APP_ENVIRONMENT production
