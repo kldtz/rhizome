@@ -7,8 +7,8 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       POSTGRES_DB: knowledge
-    expose:
-      - '5432'
+    ports:
+      - '5432:5432'
     volumes:
       - db:/var/lib/postgresql/data
   redis:
@@ -22,7 +22,7 @@ services:
   app:
     build:
       context: .
-      dockerfile: deployment/app/Dockerfile
+      dockerfile: deployment/app/dev.Dockerfile
     depends_on:
       - db
       - redis
@@ -34,6 +34,10 @@ services:
       APP_DATABASE__PASSWORD: password
       APP_DATABASE__DATABASE_NAME: knowledge
       APP_REDIS_URI: "redis://redis:6379"
+    volumes:
+      - ./src:/app/src
+      - ./templates:/app/templates
+      - ./public:/app/public
   startup:
     build:
       context: .

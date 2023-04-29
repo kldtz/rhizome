@@ -12,11 +12,13 @@ Clone the repo, create and run the containers.
 git clone https://github.com/kldtz/rhizome.git
 cd rhizome
 
+docker context use <context-name>
+
 # Public server
 docker compose up -d
 
 # Local deployment
-docker compose -f docker-compose-local.yml up -d
+docker compose -f docker-compose-local.yml up
 ```
 
 ## Manual database backup
