@@ -52,13 +52,16 @@ pub async fn run(
             .wrap(SessionMiddleware::new(redis_store.clone(), secret_key.clone()))
             // Public endpoints
             .route("/health_check", web::get().to(health_check))
-            .route("/", web::get().to(home))
             .service(actix_files::Files::new("/static", "public"))
             .route("/favicon.ico", web::get().to(favicon))
             .route("/suggest", web::get().to(suggest_page_title))
             .route("/login", web::get().to(login_form))
             .route("/login", web::post().to(login))
             // Private endpoints that require login
+            .service(web::scope("/")
+                .wrap(from_fn(reject_anonymous_users))
+                .route("", web::get().to(home))
+            )
             .service(web::scope("/pages")
                 .wrap(from_fn(reject_anonymous_users))
                 .route("", web::get().to(search_page))
