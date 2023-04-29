@@ -7,7 +7,7 @@ use uuid::Uuid;
 async fn must_be_logged_in_for_change_password_form() {
     let app = spawn_app().await;
     let response = app.get_change_password().await;
-    assert_is_redirect_to(&response, "/login");
+    assert_is_redirect_to(&response, "/login?redirect=%2Fadmin%2Fpassword");
 }
 
 #[tokio::test]

@@ -38,7 +38,9 @@ async fn page_saving_works() {
     // Save edit
     let save_response = app.api_client
         .post(&format!("{}/pages/Test%20Page/edit", &app.address))
-        .form(&[("markdown", "This is the test page summary.")])
+        .json(&serde_json::json!({
+            "markdown": "This is the test page summary.",
+        }))
         .send()
         .await
         .expect("Failed to execute page saving request.");

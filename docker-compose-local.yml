@@ -14,8 +14,8 @@ services:
   redis:
     image: redis:6-alpine
     restart: always
-    expose:
-      - '6379'
+    ports:
+      - '6379:6379'
     command: redis-server
     volumes:
       - redis:/data
