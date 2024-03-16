@@ -33,8 +33,8 @@ Use docker to copy the dump file. Going via stdout can corrupt the file.
 DB=$(docker compose ps -q db)
 
 # Restore db
-docker cp knowledge_dump.tar $DB:/
-docker exec -i $DB pg_restore -U postgres -c -d knowledge backup/knowledge_dump.tar
+docker cp backup/knowledge_dump.tar $DB:/
+docker exec -i $DB pg_restore -U postgres -c -d knowledge /knowledge_dump.tar
 ```
 
 ## Open tasks
@@ -42,3 +42,4 @@ docker exec -i $DB pg_restore -U postgres -c -d knowledge backup/knowledge_dump.
 * Clean up config and deal with secrets
 * Graph view
 * HTMX for more interactivity
+
